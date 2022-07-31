@@ -2,10 +2,10 @@ numpy
 opencv-python
 protobuf
 easydict
-pytorch
+#pytorch
 pillow
 matplotlib
-wxpython
+#wxpython
 shapely
 tqdm
 open3d
