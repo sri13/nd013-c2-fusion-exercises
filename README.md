@@ -32,23 +32,24 @@ The sequences listed above can be found in the folder "training". Please downloa
 
 # Installation Instructions in Local Anaconda environment on a RTX GPU 
 
-conda create --name nd013_python3.8 python=3.8
+`conda create --name nd013_python3.8 python=3.8`
 
-conda activate nd013_python3.8
+`conda activate nd013_python3.8`
 
-conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
+`conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge`
 #commented Pytorch requirement in requirements.txt file
 
-git clone https://github.com/sri13/nd013-c2-fusion-exercises.git
+`git clone https://github.com/sri13/nd013-c2-fusion-exercises.git`
 
-cd nd013-c2-fusion-exercises/
+`cd nd013-c2-fusion-exercises/`
 
 
 #if you have GTK+-3.0. version issue for wxpython, please install as below 
-wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
-pip install pip install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
-#commented wxPython requirement in requirements.txt file
-pip install -r requirements.txt
+`wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl`
+`pip install pip install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl`
+#commented wxPython requirement in requirements.txt file`
+
+`pip install -r requirements.txt`
 
 
 
