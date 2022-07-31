@@ -45,6 +45,8 @@ The sequences listed above can be found in the folder "training". Please downloa
 
 
 #if you have GTK+-3.0. version issue for wxpython, please install as below 
+#https://github.com/wxWidgets/Phoenix/issues/465
+
 `wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl`
 `pip install pip install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl`
 #commented wxPython requirement in requirements.txt file`
