@@ -29,3 +29,27 @@ To download these files, you will have to register with Waymo Open Dataset first
 Once you have done so, please [click here](https://console.cloud.google.com/storage/browser/waymo_open_dataset_v_1_2_0_individual_files) to access the Google Cloud Container that holds all the sequences. Once you have been cleared for access by Waymo (which might take up to 48 hours), you can download the individual sequences. 
 
 The sequences listed above can be found in the folder "training". Please download them and put the `tfrecord`-files into the `dataset` folder within the repository.
+
+# Installation Instructions in Local Anaconda environment on a RTX GPU 
+
+conda create --name nd013_python3.8 python=3.8
+
+conda activate nd013_python3.8
+
+conda install pytorch==1.10.1 torchvision==0.11.2 torchaudio==0.10.1 cudatoolkit=11.3 -c pytorch -c conda-forge
+#commented Pytorch requirement in requirements.txt file
+
+git clone https://github.com/sri13/nd013-c2-fusion-exercises.git
+
+cd nd013-c2-fusion-exercises/
+
+
+#if you have GTK+-3.0. version issue for wxpython, please install as below 
+wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
+pip install pip install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
+#commented wxPython requirement in requirements.txt file
+pip install -r requirements.txt
+
+
+
+
