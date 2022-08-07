@@ -33,12 +33,13 @@ def render_obj_over_bev(detections, lidar_bev_labels, configs, vis=False):
 
     # project detected objects into bird's eye view
     tools.project_detections_into_bev(lidar_bev_labels, detections, configs, [0,0,255])
+    
 
     # display bev map
     if vis==True:
         lidar_bev_labels = cv2.rotate(lidar_bev_labels, cv2.ROTATE_180)   
         cv2.imshow("BEV map", lidar_bev_labels)
-        cv2.waitKey(0) 
+        cv2.waitKey(10000) 
 
 
 
@@ -57,7 +58,7 @@ def render_bb_over_bev(bev_map, labels, configs, vis=False):
     if vis==True:
         bev_map_cpy = cv2.rotate(bev_map_cpy, cv2.ROTATE_180)   
         cv2.imshow("BEV map", bev_map_cpy)
-        cv2.waitKey(0)          
+        cv2.waitKey(1000)          
 
     return bev_map_cpy 
 
@@ -94,17 +95,22 @@ def min_max_intensity(lidar_pcl):
 
 # Example C2-3-1 : Crop point cloud
 def crop_pcl(lidar_pcl, configs, vis=True):
+    # unstack lidar point intensity as last column
+    #lidar_pcl = lidar_pcl[:,:3]
 
     # remove points outside of detection cube defined in 'configs.lim_*'
     mask = np.where((lidar_pcl[:, 0] >= configs.lim_x[0]) & (lidar_pcl[:, 0] <= configs.lim_x[1]) &
                     (lidar_pcl[:, 1] >= configs.lim_y[0]) & (lidar_pcl[:, 1] <= configs.lim_y[1]) &
                     (lidar_pcl[:, 2] >= configs.lim_z[0]) & (lidar_pcl[:, 2] <= configs.lim_z[1]))
+    #print("mask /n", mask)
     lidar_pcl = lidar_pcl[mask]
+
+    #print("Lidar_pcl /n",lidar_pcl)
 
     # visualize point-cloud
     if vis:
         pcd = o3d.geometry.PointCloud()
-        pcd.points = o3d.utility.Vector3dVector(lidar_pcl)
-        o3d.visualization.draw_geometries([pcd])
+        pcd.points = o3d.utility.Vector3dVector(lidar_pcl[:,:3])
+        o3d.visualization.draw_geometries([pcd], window_name="Crop Point Cloud Display")
 
     return lidar_pcl

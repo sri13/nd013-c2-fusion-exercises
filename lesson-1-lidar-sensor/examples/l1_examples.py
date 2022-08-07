@@ -63,6 +63,8 @@ def range_image_to_point_cloud(frame, lidar_name, vis=True):
     az_correction = math.atan2(extrinsic[1,0], extrinsic[0,0])
     azimuth = np.linspace(np.pi,-np.pi,width) - az_correction
 
+    #print(" azimuth  : ", azimuth )
+    #print(" az_correction  : ", az_correction )
     # expand inclination and azimuth such that every range image cell has its own appropriate value pair
     azimuth_tiled = np.broadcast_to(azimuth[np.newaxis,:], (height,width))
     inclination_tiled = np.broadcast_to(inclinations[:,np.newaxis],(height,width))
@@ -85,10 +87,13 @@ def range_image_to_point_cloud(frame, lidar_name, vis=True):
     if vis:
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(pcl)
-        o3d.visualization.draw_geometries([pcd])
+        o3d.visualization.draw_geometries([pcd], window_name="Point Cloud Display")
 
     # stack lidar point intensity as last column
     pcl_full = np.column_stack((pcl, ri[idx_range, 1]))    
+
+    #print(type(pcl),pcl.shape)
+    #print(type(pcl_full),pcl_full.shape)
 
     return pcl_full    
 
@@ -114,7 +119,7 @@ def vis_range_channel(frame, lidar_name):
     print('min. val = ' + str(round(np.amin(img_range[:,:]),2)))
 
     cv2.imshow('range_image', img_range)
-    cv2.waitKey(0)
+    cv2.waitKey(10000)
 
 
 # Example C1-5-3 : Retrieve maximum and minimum distance
@@ -149,15 +154,23 @@ def print_vfov_lidar(frame, lidar_name):
     # get lidar calibration data
     calib_lidar = [obj for obj in frame.context.laser_calibrations if obj.name == lidar_name][0]
 
+    print("Stats : ", frame.context.stats)
+
+    led_count = 0
+    for i in calib_lidar.beam_inclinations:
+        led_count+=1
+    
+    print("LED Count : ", led_count )
+
     # compute vertical field of view (vfov) in rad
     vfov_rad = calib_lidar.beam_inclination_max - calib_lidar.beam_inclination_min
 
     # compute and print vfov in degrees
-    print(vfov_rad*180/np.pi)
+    print("angle of vertical field of view:",vfov_rad*180/np.pi)
 
 
 # Example C1-3-2 : display camera image
-def display_image(frame):
+def display_image(frame, vis_pause_time):
 
     # load the camera data structure
     camera_name = dataset_pb2.CameraName.FRONT
@@ -173,5 +186,5 @@ def display_image(frame):
 
     # display the image 
     cv2.imshow("Front-camera image", resized)
-    cv2.waitKey(0)
+    cv2.waitKey(vis_pause_time)
 
